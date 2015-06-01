@@ -18,7 +18,7 @@ public class Reader {
                 = new InputStreamReader(inputStream, Charset.forName("UTF-8")); //Otwieramy readera
         BufferedReader bufferedReader = new BufferedReader(streamReader); //Buforujemy radera
         String line = bufferedReader.readLine();
-        while (line!= null){ // readLine() zwraca null jeśli plik się skończył
+        while (line!= null){
             System.out.println(line);
             line = bufferedReader.readLine();
         }

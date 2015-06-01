@@ -1,8 +1,8 @@
 package prodev.MathModel;
 
 import javax.swing.JOptionPane;
-
 import prodev.GraphicsInterface.MainFrame;
+import prodev.Main.Main;
 
 public class ValuesOfElements {
 
@@ -11,6 +11,7 @@ public class ValuesOfElements {
 	double coilValue;
 	double amplitudeValue;
 	double frequencyValue;
+	
 	//Resistor,Coil,Capacitor,Generator states:
 	boolean listOfElements[] = {false,false,false,false,false};
 	
@@ -61,23 +62,23 @@ public class ValuesOfElements {
 		frequencyValue = value;
 	}
 	
-	double getResistorValue(){
+	public double getResistorValue(){
 		return resistorValue;
 	}
 	
-	double getCapacitorValue(){
+	public double getCapacitorValue(){
 		return capacitorValue;
 	}
 	
-	double getCoilValue(){
+	public double getCoilValue(){
 		return coilValue;
 	}
 	
-	double getAmplitudeValue(){
+	public double getAmplitudeValue(){
 		return amplitudeValue;
 	}
 	
-	double getRequencyValue(){
+	public double getFrequencyValue(){
 		return frequencyValue;
 	}
 	
@@ -112,6 +113,16 @@ public class ValuesOfElements {
 		if(validation == false){
 			MainFrame.setRunState(false);
 			JOptionPane.showMessageDialog(null, "Uk³ad musi czerpac energie z generatora lub kondesatora!");
+		}
+		else{
+			
+			for(int ii=0;ii<4;ii++){
+				if(!Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.isAlive()){
+					Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.start();
+					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartFrequency(frequencyValue);
+					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartAmplitude(amplitudeValue);
+				}
+			}
 		}
 	}
 }

@@ -6,8 +6,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
 import prodev.MathModel.ValuesOfElements;
 
 public class MainFrame extends JFrame {
@@ -15,12 +13,11 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 2269971701250845501L;
 	
 	public TopPanel topPanel;
-	BottomPanel bottomPanel;
+	public BottomPanel bottomPanel;
 	JMenuBar menu = new JMenuBar();
-	static public JMenu load = new JMenu("Wczytaj");
+	public static JMenu load = new JMenu("Wczytaj");
 	static public JMenu save = new JMenu("Zapisz");
 	static public JMenu help = new JMenu("Pomoc");
-	static public JMenu autors = new JMenu("Autorzy");
 	static boolean runAnimation = false;
 	static ValuesOfElements values;
 	public static boolean elementsValidation = false;
@@ -39,7 +36,6 @@ public class MainFrame extends JFrame {
 		menu.add(load);
 		menu.add(save);
 		menu.add(help);
-		menu.add(autors);
 		
 		setJMenuBar(menu);
 		add(topPanel);

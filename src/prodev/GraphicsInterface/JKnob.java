@@ -24,9 +24,9 @@ class JKnob
     private static final int spotRadius = 3;
 
     private double theta;
-    public int value = 1;
+    public int value = 5;
     public int power = 0;
-    public double amplitude = 50;
+    public double amplitude = 5;
     
     private Color knobColor;
     private Color spotColor;
@@ -48,23 +48,12 @@ class JKnob
      * @param initAngle the initial angle of the knob.
      */
     public JKnob(double initTheta) {
-	this(initTheta, Color.gray, Color.black);
-	
-	int srt = (int)(30*(theta+3.14)/6.28);
-	switch(srt % 3)
-	{
-		case 0:
-			value = 1;
-			break;
-		case 1:
-			value = 2;
-			break;
-		case 2:
-			value = 5;
-			break;
-	}
-	power = (int)((srt - (srt % 3))/3) - 7;
-	amplitude =(int)(value*Math.pow(10,power));
+    	this(initTheta, Color.gray, Color.black);
+    }
+    
+    public double setStartAmplitude(int value, int power){
+		amplitude =(int)(value*Math.pow(10,power));
+		return amplitude;
     }
     
     /**
@@ -249,7 +238,6 @@ class JKnob
     	}
     	power = (int)((srt - (srt % 3))/3) - 7;
     	amplitude = (value*Math.pow(10,power));
-    	
     }
     
     // Methods from the MouseMotionListener interface.
@@ -316,4 +304,6 @@ class JKnob
 
 	myFrame.pack();
     }
+    
+   
 }

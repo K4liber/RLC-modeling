@@ -13,8 +13,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JMenuItem;
@@ -36,11 +34,13 @@ public class FileManager {
         int ii=0;
         while (line!= null){ 
         	String results[] = null;
-        	results = line.split(" ");
-        	RightTopPanel.elements.get(ii).valueField.setText(results[0]);
-        	RightTopPanel.elements.get(ii).powerField.setText(results[1]);
-        	if(ii != 4)
-        		RightTopPanel.elements.get(ii).checkBox.setSelected(true);
+        	if(line.contains(" ")){
+	        	results = line.split(" ");
+	        	RightTopPanel.elements.get(ii).valueField.setText(results[0]);
+	        	RightTopPanel.elements.get(ii).powerField.setText(results[1]);
+	        	if(ii != 4)
+	        		RightTopPanel.elements.get(ii).checkBox.setSelected(true);
+        	}
             line = bufferedReader.readLine();
             ii++;
         }
@@ -76,7 +76,9 @@ public class FileManager {
         			}
         		});
                 MainFrame.load.add(loadItem);
+                MainFrame.load.add(loadItem);
             }
+            src.close();
         }catch(Exception e){
             
         }

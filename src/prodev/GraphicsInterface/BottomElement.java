@@ -7,11 +7,9 @@ import javax.swing.JPanel;
 public class BottomElement extends JPanel {
 
 	private static final long serialVersionUID = 4010806667691565848L;
-
-	public JLabel titleLabel;
-	public String name;
+	private JLabel titleLabel;
+	private String name;
 	public ChartAnimation animation;
-
 	
 	public BottomElement(String name, String path) {
 		setLayout(null);
@@ -22,7 +20,6 @@ public class BottomElement extends JPanel {
 		setBorder(BorderFactory.createLineBorder(new Color(20,20,20)));
 		animation = new ChartAnimation();
 		animation.setBounds(20,45,155,220);
-		add(animation);
-		
+		add(animation);	
 	}	
 }

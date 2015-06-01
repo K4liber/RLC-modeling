@@ -5,8 +5,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.*;
 
+import prodev.Main.Main;
 import prodev.MathModel.ValuesOfElements;
 
 public class LeftTopPanel extends JPanel {
@@ -63,8 +65,7 @@ public class LeftTopPanel extends JPanel {
 							MainFrame.runAnimation = true;
 							MainFrame.values.setElementValue(elementValue,ii);
 							MainFrame.values.setState(true, ii);
-							if(ii != 4 && !BottomPanel.bottomElements.get(ii).animation.trit.isAlive())
-								BottomPanel.bottomElements.get(ii).animation.trit.start();
+							
 						}
 					} catch (NumberFormatException ex) {
 						MainFrame.runAnimation = false;
@@ -86,8 +87,10 @@ public class LeftTopPanel extends JPanel {
 		stopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainFrame.runAnimation = false;
-				for (BottomElement belement : BottomPanel.bottomElements) {
+				for (BottomElement belement : Main.frame.bottomPanel.bottomElements) {
 					belement.animation.counter = 0;
+					belement.animation.setStartFrequency(MainFrame.values.getFrequencyValue());
+					belement.animation.setStartAmplitude(MainFrame.values.getAmplitudeValue());
 				}
 			}
 		});

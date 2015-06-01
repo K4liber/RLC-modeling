@@ -11,13 +11,15 @@ public class ChartAnimation extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
 	public int sinusData[];
 	public int timeBase[];
-	Thread trit;
+	public Thread trit;
 	int last;
 	public JKnob knobV;
 	public JKnob knobT;
 	public JLabel vDiv;
 	public JLabel tDiv;
 	public double counter;
+	public double startAmplitude;
+	public double frequency;
 	
 	public ChartAnimation() {
 		
@@ -55,7 +57,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 				for(int ii=0;ii<150;ii++){
 					sinusData[ii] = sinResult(counter+ii);	
 				}
-				Thread.sleep(10);
+				Thread.sleep(50);
 				vDiv.setText(powerToString(knobV.power,knobV.value)+"V/div");
 				tDiv.setText(powerToString(knobT.power,knobT.value)+"s/div");
 				repaint();
@@ -68,20 +70,21 @@ public class ChartAnimation extends JPanel implements Runnable {
 	protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawRect(0,0, 150,150);
-        for(int ii=0;ii<4;ii++)
-        {
+        for(int ii=0;ii<4;ii++){
         	g.drawLine(ii*38, 0, ii*38, 150);
         	g.drawLine(0, ii*38, 150, ii*38);
         }
         g.setColor(new Color(200,10,0));
         if(MainFrame.runAnimation)
         	counter+=10;
-        for(int ii=0;ii<150;ii++)
-        	g.drawOval(timeBase[ii], 75+sinusData[ii], 1, 1);
+        if(trit.isAlive()){
+	        for(int ii=0;ii<150;ii++)
+	        	g.drawOval(timeBase[ii], 75+sinusData[ii], 1, 1);
+        }
     }
 
 	public int sinResult(double time){		
-		return (int)(knobV.amplitude*Math.sin(time/1000*6.28/knobT.amplitude));
+		return (int)(startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
 	}
 	
 	public String powerToString(int power,int value){
@@ -122,5 +125,15 @@ public class ChartAnimation extends JPanel implements Runnable {
 			break;
 		}
 		return s;
+	}
+	
+	public void setStartAmplitude(double amp){
+		startAmplitude = amp;
+		knobV.amplitude = amp;
+	}
+	
+	public void setStartFrequency(double f){
+		frequency = f;
+		knobT.amplitude = 1/frequency;
 	}
 }
