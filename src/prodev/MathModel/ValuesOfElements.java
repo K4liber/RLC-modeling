@@ -11,6 +11,7 @@ public class ValuesOfElements {
 	double coilValue;
 	double amplitudeValue;
 	double frequencyValue;
+	String schemeName = "";
 	
 	//Resistor,Coil,Capacitor,Generator states:
 	boolean listOfElements[] = {false,false,false,false,false};
@@ -115,14 +116,36 @@ public class ValuesOfElements {
 			JOptionPane.showMessageDialog(null, "Uk³ad musi czerpac energie z generatora lub kondesatora!");
 		}
 		else{
-			
+			setSchemeName();
 			for(int ii=0;ii<4;ii++){
-				if(!Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.isAlive()){
-					Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.start();
-					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartFrequency(frequencyValue);
-					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartAmplitude(amplitudeValue);
+				if(listOfElements[ii]){
+					Main.frame.bottomPanel.bottomElements.get(ii).animation.runForest(true);
+					if(!Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.isAlive()){
+						Main.frame.bottomPanel.bottomElements.get(ii).animation.runForest(true);
+						Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.start();
+						Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartFrequency(frequencyValue);
+						Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartAmplitude(amplitudeValue);
+					}
 				}
 			}
 		}
+	}
+	
+	public void setSchemeName(){
+		String name = schemeName;
+		if(listOfElements[0])
+			name = name + "R";
+		if(listOfElements[1])
+			name = name + "L";
+		if(listOfElements[2])
+			name = name + "C";
+		if(listOfElements[3] && listOfElements[4])
+			name = name + "G";
+		
+		schemeName = name;
+	}
+	
+	public String getSchemeName(){
+		return schemeName;
 	}
 }

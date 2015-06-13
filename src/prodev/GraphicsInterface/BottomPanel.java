@@ -12,10 +12,10 @@ public class BottomPanel extends JPanel {
 	
 	public BottomPanel() {
 		setLayout(new GridLayout(1, 4));
-		bottomElements.add(new BottomElement("Napiêcie na rezystorze", "chart.png"));
-		bottomElements.add(new BottomElement("Napiêcie na cewce", "chart.png"));
-		bottomElements.add(new BottomElement("Napiêcie na kondesatorze", "chart.png"));
-		bottomElements.add(new BottomElement("Napiêcie na generatorze", "chart.png"));
+		bottomElements.add(new BottomElement("Resistor", "chart.png"));
+		bottomElements.add(new BottomElement("Coil", "chart.png"));
+		bottomElements.add(new BottomElement("Capacitor", "chart.png"));
+		bottomElements.add(new BottomElement("Generator", "chart.png"));
 		for(BottomElement e : bottomElements) {
 			add(e);
 		}

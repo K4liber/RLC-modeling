@@ -20,9 +20,12 @@ public class ChartAnimation extends JPanel implements Runnable {
 	public double counter;
 	public double startAmplitude;
 	public double frequency;
+	public String name;
+	private boolean running = false;
 	
-	public ChartAnimation() {
+	public ChartAnimation(String n) {
 		
+		name = n;
 		setLayout(null);
 		JPanel knobs = new JPanel();
 		knobs.setLayout(null);
@@ -55,7 +58,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 			try {
 				last = sinusData[0];
 				for(int ii=0;ii<150;ii++){
-					sinusData[ii] = sinResult(counter+ii);	
+					sinusData[ii] = mathResult(counter+ii);	
 				}
 				Thread.sleep(50);
 				vDiv.setText(powerToString(knobV.power,knobV.value)+"V/div");
@@ -77,7 +80,7 @@ public class ChartAnimation extends JPanel implements Runnable {
         g.setColor(new Color(200,10,0));
         if(MainFrame.runAnimation)
         	counter+=10;
-        if(trit.isAlive()){
+        if(trit.isAlive() && running){
 	        for(int ii=0;ii<150;ii++)
 	        	g.drawOval(timeBase[ii], 75+sinusData[ii], 1, 1);
         }
@@ -130,10 +133,41 @@ public class ChartAnimation extends JPanel implements Runnable {
 	public void setStartAmplitude(double amp){
 		startAmplitude = amp;
 		knobV.amplitude = amp;
+		vDiv.setText(amp+"V/div");
 	}
 	
 	public void setStartFrequency(double f){
 		frequency = f;
 		knobT.amplitude = 1/frequency;
+	}
+	
+	public int mathResult(double time){
+		int r = 0;
+		switch(MainFrame.values.getSchemeName()){
+			case "RLCG":{
+				switch(name){
+					case "Resistor":{
+						r = (int)(startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						break;
+					}
+					case "Capacitor":{
+						r = (int)(3*startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						break;
+					}
+					case "Coil":{
+						r = (int)(2*startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(0.5*startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						break;
+					}
+				}
+			}
+		}
+		return r;
+	}
+	public void runForest(boolean f){
+		running = f;
 	}
 }

@@ -1,8 +1,10 @@
 package prodev.GraphicsInterface;
 import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class BottomElement extends JPanel {
 
@@ -14,12 +16,13 @@ public class BottomElement extends JPanel {
 	public BottomElement(String name, String path) {
 		setLayout(null);
 		this.name = name;
-		titleLabel = new JLabel(this.name);
-		titleLabel.setBounds(15,0,180,50);
+		titleLabel = new JLabel(this.name, SwingConstants.CENTER);
+		titleLabel.setBounds(0,0,200,50);
 		add(titleLabel);
 		setBorder(BorderFactory.createLineBorder(new Color(20,20,20)));
-		animation = new ChartAnimation();
-		animation.setBounds(20,45,155,220);
+		animation = new ChartAnimation(name);
+		animation.setBounds(23,45,155,220);
 		add(animation);	
 	}	
+	
 }

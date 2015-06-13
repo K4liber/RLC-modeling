@@ -51,7 +51,12 @@ public class LeftTopPanel extends JPanel {
 
 		playButton = new JButton(">");
 		playButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+				for (BottomElement belement : Main.frame.bottomPanel.bottomElements) {
+					if(belement.animation.trit.isAlive())
+						belement.animation.runForest(false);
+				}
 				MainFrame.values = new ValuesOfElements();
 				int ii=0;
 				for (RightTopElement element : RightTopPanel.elements) {
