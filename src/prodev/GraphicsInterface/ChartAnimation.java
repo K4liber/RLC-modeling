@@ -23,6 +23,8 @@ public class ChartAnimation extends JPanel implements Runnable {
 	public String name;
 	private boolean running = false;
 	
+	private double ampFactor;
+	
 	public ChartAnimation(String n) {
 		
 		name = n;
@@ -85,10 +87,6 @@ public class ChartAnimation extends JPanel implements Runnable {
 	        	g.drawOval(timeBase[ii], 75+sinusData[ii], 1, 1);
         }
     }
-
-	public int sinResult(double time){		
-		return (int)(startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
-	}
 	
 	public String powerToString(int power,int value){
 		String s = "Wrong Data!";
@@ -145,21 +143,22 @@ public class ChartAnimation extends JPanel implements Runnable {
 		int r = 0;
 		switch(MainFrame.values.getSchemeName()){
 			case "RLCG":{
+				setAmpFactor(startAmplitude*37.5/knobV.amplitude);
 				switch(name){
 					case "Resistor":{
-						r = (int)(startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						r = (int)(ampFactor*MainFrame.values.getResistorValue()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,0)));
 						break;
 					}
 					case "Capacitor":{
-						r = (int)(3*startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						r = (int)(-ampFactor*MainFrame.values.getCapacitorImpedance()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,Math.PI/2)));
 						break;
 					}
 					case "Coil":{
-						r = (int)(2*startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						r = (int)(ampFactor*MainFrame.values.getCoilImpedance()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,Math.PI/2)));
 						break;
 					}
 					case "Generator":{
-						r = (int)(0.5*startAmplitude*37.5/knobV.amplitude*Math.sin(Math.toRadians((time/1000)*frequency*knobT.amplitude*2*Math.PI*375)));
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,MainFrame.values.getPhase())));
 						break;
 					}
 				}
@@ -169,5 +168,17 @@ public class ChartAnimation extends JPanel implements Runnable {
 	}
 	public void runForest(boolean f){
 		running = f;
+	}
+
+	public double getAmpFactor() {
+		return ampFactor;
+	}
+
+	public void setAmpFactor(double ampFactor) {
+		this.ampFactor = ampFactor;
+	}
+	
+	public double getRadiansValue(double time,double phase){
+		return Math.toRadians(((time/1000)*frequency*knobT.amplitude*2*Math.PI+phase)*375);
 	}
 }

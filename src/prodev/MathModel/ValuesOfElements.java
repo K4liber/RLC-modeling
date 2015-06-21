@@ -1,17 +1,31 @@
 package prodev.MathModel;
 
 import javax.swing.JOptionPane;
+
 import prodev.GraphicsInterface.MainFrame;
 import prodev.Main.Main;
 
 public class ValuesOfElements {
 
-	double resistorValue;
-	double capacitorValue;
-	double coilValue;
-	double amplitudeValue;
-	double frequencyValue;
+	private double resistorValue;
+	private double capacitorValue;
+	private double coilValue;
+	private double amplitudeValue;
+	private double frequencyValue;
+	
+	private double capacitorImpedance;
+	private double coilImpedance;
+	private double impedance;
+	private double phase;
+	private double resistancesCC;
+	private double beta;
+	private double omega;
+	private double betaBf;
+	private double betaBs;
+	private double omegaZero;
+	private double initialCharge;
 	String schemeName = "";
+	
 	
 	//Resistor,Coil,Capacitor,Generator states:
 	boolean listOfElements[] = {false,false,false,false,false};
@@ -143,9 +157,115 @@ public class ValuesOfElements {
 			name = name + "G";
 		
 		schemeName = name;
+		setAdditionalValues();
 	}
 	
+	public void setAdditionalValues() {
+		switch(schemeName){
+			case "RLCG":{
+				setCapacitorImpedance(1/(Math.PI*2*frequencyValue*capacitorValue));
+				setCoilImpedance((Math.PI*2*frequencyValue*coilValue));
+				System.out.println(coilImpedance);
+				impedance = Math.sqrt(Math.pow(resistorValue, 2) + Math.pow(coilImpedance-capacitorImpedance, 2));
+				phase = Math.acos(resistorValue/impedance);
+				setImpedance(impedance);
+				setPhase(phase);
+				System.out.println(impedance);
+				System.out.println(phase);
+				break;
+			}
+		}
+	}
+
 	public String getSchemeName(){
 		return schemeName;
+	}
+
+	public double getImpedance() {
+		return impedance;
+	}
+
+	public void setImpedance(double impedance) {
+		this.impedance = impedance;
+	}
+
+	public double getPhase() {
+		return phase;
+	}
+
+	public void setPhase(double phase) {
+		this.phase = phase;
+	}
+
+	public double getResistancesCC() {
+		return resistancesCC;
+	}
+
+	public void setResistancesCC(double resistancesCC) {
+		this.resistancesCC = resistancesCC;
+	}
+
+	public double getBeta() {
+		return beta;
+	}
+
+	public void setBeta(double beta) {
+		this.beta = beta;
+	}
+
+	public double getOmega() {
+		return omega;
+	}
+
+	public void setOmega(double omega) {
+		this.omega = omega;
+	}
+
+	public double getBetaBf() {
+		return betaBf;
+	}
+
+	public void setBetaBf(double betaBf) {
+		this.betaBf = betaBf;
+	}
+
+	public double getBetaBs() {
+		return betaBs;
+	}
+
+	public void setBetaBs(double betaBs) {
+		this.betaBs = betaBs;
+	}
+
+	public double getOmegaZero() {
+		return omegaZero;
+	}
+
+	public void setOmegaZero(double omegaZero) {
+		this.omegaZero = omegaZero;
+	}
+
+	public double getInitialCharge() {
+		return initialCharge;
+	}
+
+	public void setInitialCharge(double initialCharge) {
+		this.initialCharge = initialCharge;
+	}
+
+	public double getCapacitorImpedance() {
+		return capacitorImpedance;
+	}
+
+	public void setCapacitorImpedance(double capacitorImpedance) {
+		this.capacitorImpedance = capacitorImpedance;
+	}
+
+	public double getCoilImpedance() {
+		return coilImpedance;
+	}
+
+	public void setCoilImpedance(double coilImpedance) {
+		this.coilImpedance = coilImpedance;
 	}
 }
