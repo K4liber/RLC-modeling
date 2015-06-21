@@ -32,7 +32,14 @@ public class FileManager {
         BufferedReader bufferedReader = new BufferedReader(streamReader); //Buforujemy radera
         String line = bufferedReader.readLine();
         int ii=0;
-        while (line!= null){ 
+        //Zerujemy wszystkie wartoœci
+        for(int zz=0;zz<5;zz++){
+        	RightTopPanel.elements.get(zz).valueField.setText("");
+        	RightTopPanel.elements.get(zz).powerField.setText("");
+        	if(zz != 4 && RightTopPanel.elements.get(zz).checkBox.isSelected())
+        		RightTopPanel.elements.get(zz).checkBox.setSelected(false);
+        }
+        while (ii<5){ 
         	String results[] = null;
         	if(line.contains(" ")){
 	        	results = line.split(" ");

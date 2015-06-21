@@ -141,9 +141,9 @@ public class ChartAnimation extends JPanel implements Runnable {
 	
 	public int mathResult(double time){
 		int r = 0;
+		setAmpFactor(startAmplitude*37.5/knobV.amplitude);
 		switch(MainFrame.values.getSchemeName()){
 			case "RLCG":{
-				setAmpFactor(startAmplitude*37.5/knobV.amplitude);
 				switch(name){
 					case "Resistor":{
 						r = (int)(ampFactor*MainFrame.values.getResistorValue()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,0)));
@@ -163,7 +163,92 @@ public class ChartAnimation extends JPanel implements Runnable {
 					}
 				}
 			}
+			case "LCG":{
+				switch(name){
+					case "Capacitor":{
+						r = (int)(ampFactor*MainFrame.values.getCapacitorImpedance()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Coil":{
+						r = (int)(-ampFactor*MainFrame.values.getCoilImpedance()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+				}
+			}
+			case "CG":{
+				switch(name){
+					case "Capacitor":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+				}
+			}
+			case "LG":{
+				switch(name){
+					case "Coil":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+				}
+			}
+			case "RCG":{
+				switch(name){
+					case "Capacitor":{
+						r = (int)(ampFactor*MainFrame.values.getCapacitorImpedance()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,Math.PI/2)));
+						break;
+					}
+					case "Resistor":{
+						r = (int)(ampFactor*MainFrame.values.getResistorValue()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,MainFrame.values.getPhase())));
+						break;
+					}
+				}
+			}
+			case "RG":{
+				switch(name){
+					case "Resistor":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+				}
+			}
+			case "RLG":{
+				switch(name){
+					case "Resistor":{
+						r = (int)(ampFactor*MainFrame.values.getResistorValue()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,0)));
+						break;
+					}
+					case "Coil":{
+						r = (int)(ampFactor*MainFrame.values.getCoilImpedance()/MainFrame.values.getImpedance()*Math.sin(getRadiansValue(time,Math.PI/2)));
+						break;
+					}
+					case "Generator":{
+						r = (int)(ampFactor*Math.sin(getRadiansValue(time,MainFrame.values.getPhase())));
+						break;
+					}
+				}
+			}
 		}
+		
 		return r;
 	}
 	public void runForest(boolean f){

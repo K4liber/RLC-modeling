@@ -26,7 +26,7 @@ class JKnob
     private double theta;
     public int value = 5;
     public int power = 0;
-    public double amplitude = 5;
+    public double amplitude;
     
     private Color knobColor;
     private Color spotColor;

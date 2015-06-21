@@ -130,29 +130,33 @@ public class ValuesOfElements {
 			JOptionPane.showMessageDialog(null, "Uk³ad musi czerpac energie z generatora lub kondesatora!");
 		}
 		else{
-			setSchemeName();
+			setSchemeBasicData();
 			for(int ii=0;ii<4;ii++){
 				if(listOfElements[ii]){
 					Main.frame.bottomPanel.bottomElements.get(ii).animation.runForest(true);
+					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartFrequency(frequencyValue);
+					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartAmplitude(amplitudeValue);
 					if(!Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.isAlive()){
 						Main.frame.bottomPanel.bottomElements.get(ii).animation.runForest(true);
 						Main.frame.bottomPanel.bottomElements.get(ii).animation.trit.start();
-						Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartFrequency(frequencyValue);
-						Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartAmplitude(amplitudeValue);
 					}
 				}
 			}
 		}
 	}
 	
-	public void setSchemeName(){
+	public void setSchemeBasicData(){
 		String name = schemeName;
 		if(listOfElements[0])
 			name = name + "R";
-		if(listOfElements[1])
+		if(listOfElements[1]){
 			name = name + "L";
-		if(listOfElements[2])
+			setCoilImpedance((Math.PI*2*frequencyValue*coilValue));
+		}
+		if(listOfElements[2]){
 			name = name + "C";
+			setCapacitorImpedance(1/(Math.PI*2*frequencyValue*capacitorValue));
+		}
 		if(listOfElements[3] && listOfElements[4])
 			name = name + "G";
 		
@@ -163,15 +167,22 @@ public class ValuesOfElements {
 	public void setAdditionalValues() {
 		switch(schemeName){
 			case "RLCG":{
-				setCapacitorImpedance(1/(Math.PI*2*frequencyValue*capacitorValue));
-				setCoilImpedance((Math.PI*2*frequencyValue*coilValue));
-				System.out.println(coilImpedance);
-				impedance = Math.sqrt(Math.pow(resistorValue, 2) + Math.pow(coilImpedance-capacitorImpedance, 2));
-				phase = Math.acos(resistorValue/impedance);
-				setImpedance(impedance);
-				setPhase(phase);
-				System.out.println(impedance);
-				System.out.println(phase);
+				setImpedance(Math.sqrt(Math.pow(resistorValue, 2) + Math.pow(coilImpedance-capacitorImpedance, 2)));
+				setPhase(Math.acos(resistorValue/impedance));
+				break;
+			}
+			case "LCG":{
+				setImpedance(Math.abs(coilImpedance-capacitorImpedance));
+				break;
+			}
+			case "RCG":{
+				setImpedance(Math.sqrt(Math.pow(resistorValue, 2) + Math.pow(capacitorImpedance, 2)));
+				setPhase(Math.acos(resistorValue/impedance));
+				break;
+			}
+			case "RLG":{
+				setImpedance(Math.sqrt(Math.pow(resistorValue, 2) + Math.pow(coilImpedance, 2)));
+				setPhase(Math.acos(resistorValue/impedance));
 				break;
 			}
 		}
