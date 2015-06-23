@@ -24,7 +24,7 @@ class JKnob
     private static final int spotRadius = 3;
 
     private double theta;
-    public int value = 5;
+    public int value = 0;
     public int power = 0;
     public double amplitude;
     

@@ -73,7 +73,7 @@ public class ValuesOfElements {
 		amplitudeValue = value;
 	}
 	
-	void setRequencyValue(double value){
+	void setFrequencyValue(double value){
 		frequencyValue = value;
 	}
 	
@@ -184,6 +184,36 @@ public class ValuesOfElements {
 				setImpedance(Math.sqrt(Math.pow(resistorValue, 2) + Math.pow(coilImpedance, 2)));
 				setPhase(Math.acos(resistorValue/impedance));
 				break;
+			}
+			case "LC":{
+				setInitialCharge(0.000000001);
+				setOmega(1/Math.sqrt(coilValue*capacitorValue));
+				setFrequencyValue(omega/(2*Math.PI));
+				setAmplitudeValue(initialCharge/capacitorValue);
+				break;
+			}
+			case "RC":{
+				setInitialCharge(0.000000001);
+				setOmega(1/(resistorValue*capacitorValue));
+				setFrequencyValue(omega/(2*Math.PI));
+				setAmplitudeValue(initialCharge/capacitorValue);
+				break;
+			}
+			case "RLC":{
+				setInitialCharge(0.000000001);
+				setBeta(resistorValue/(2*coilValue));
+				setAmplitudeValue(initialCharge/capacitorValue);
+				if(resistorValue < 2*Math.sqrt(coilValue/capacitorValue)){
+					schemeName = schemeName + "D";
+					setOmega(Math.sqrt((1/(coilValue*capacitorValue)-Math.pow(beta, 2))));
+				}else{
+					schemeName = schemeName + "A";
+					setOmegaZero(Math.sqrt((1/(coilValue*capacitorValue))));
+					setBetaBf(beta+Math.sqrt(Math.pow(beta, 2)-omegaZero));
+					setBetaBs(beta-Math.sqrt(Math.pow(beta, 2)-omegaZero));
+					setOmega(betaBs);
+				}
+				setFrequencyValue(omega/(2*Math.PI));
 			}
 		}
 	}

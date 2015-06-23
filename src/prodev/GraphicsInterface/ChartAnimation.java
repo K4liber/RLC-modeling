@@ -32,14 +32,14 @@ public class ChartAnimation extends JPanel implements Runnable {
 		JPanel knobs = new JPanel();
 		knobs.setLayout(null);
 		knobV = new JKnob();
-		knobV.setBounds(20,17,50,40);
+		knobV.setBounds(20,18,50,40);
 		knobT = new JKnob();
-		knobT.setBounds(100,17,50,40);
+		knobT.setBounds(100,18,50,40);
 		vDiv = new JLabel();
-		vDiv.setText(powerToString(knobV.power,knobV.value)+"V/div");
+		vDiv.setText(" ? V/div");
 		vDiv.setBounds(15,28,55,60);
 		tDiv = new JLabel();
-		tDiv.setText(powerToString(knobT.power,knobT.value)+"s/div");
+		tDiv.setText(" ? s/div");
 		tDiv.setBounds(95,28,55,60);
 		trit = new Thread(this);
 		sinusData = new int[150];
@@ -51,7 +51,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 		for(int ii=0;ii<150;ii++){
 			timeBase[ii] = ii;
 		}
-		knobs.setBounds(0,151,200,140);
+		knobs.setBounds(0,153,200,140);
 		add(knobs);
 	}
 	
@@ -74,8 +74,9 @@ public class ChartAnimation extends JPanel implements Runnable {
 	
 	protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawRect(0,0, 150,150);
-        for(int ii=0;ii<4;ii++){
+        for(int ii=0;ii<5;ii++){
+        	g.setColor(new Color(200,200,200));
+        	if(ii==2) g.setColor(new Color(100,100,100));
         	g.drawLine(ii*38, 0, ii*38, 150);
         	g.drawLine(0, ii*38, 150, ii*38);
         }
@@ -162,6 +163,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
 			}
 			case "LCG":{
 				switch(name){
@@ -178,6 +180,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
 			}
 			case "CG":{
 				switch(name){
@@ -190,6 +193,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
 			}
 			case "LG":{
 				switch(name){
@@ -202,6 +206,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
 			}
 			case "RCG":{
 				switch(name){
@@ -218,6 +223,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
 			}
 			case "RG":{
 				switch(name){
@@ -230,6 +236,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
 			}
 			case "RLG":{
 				switch(name){
@@ -246,9 +253,76 @@ public class ChartAnimation extends JPanel implements Runnable {
 						break;
 					}
 				}
+				break;
+			}
+			case "LC":{
+				switch(name){
+					case "Capacitor":{
+						r = (int)(ampFactor*Math.cos(getRadiansValue(time,0)));
+						break;
+					}
+					case "Coil":{
+						r = (int)(-ampFactor*Math.cos(getRadiansValue(time,0)));
+						break;
+					}
+				}
+				break;
+			}
+			case "RC":{
+				switch(name){
+					case "Capacitor":{
+						r = (int)(-ampFactor*Math.pow(Math.E, -(time*0.375*frequency*knobT.amplitude)/MainFrame.values.getOmega()));
+						break;
+					}
+					case "Resistor":{
+						r = (int)(ampFactor*Math.pow(Math.E, -(time*0.375*frequency*knobT.amplitude)/MainFrame.values.getOmega()));
+						break;
+					}
+				}
+				break;
+			}
+			case "RLCA":{
+				//(BBF/(BBF-BBS)*EE^(-BBS*AS5)+BBS/(BBF-BBS)*EE^(-BBF*AS5))
+				double betaBf = MainFrame.values.getBetaBf();
+				double betaBs = MainFrame.values.getBetaBs();
+				double e = betaBf/(betaBf-betaBs)*Math.pow(Math.E, -(time/1000*knobT.amplitude)*betaBs)+betaBs/(betaBf-betaBs)*Math.pow(Math.E, -(time/1000*knobT.amplitude)*betaBf);
+				
+				switch(name){
+					case "Resistor":{
+						r = (int)(-ampFactor*e);
+						break;
+					}
+					case "Capacitor":{
+						r = (int)(-ampFactor*e);
+						break;
+					}
+					case "Coil":{
+						r = (int)(ampFactor*MainFrame.values.getCoilValue()/MainFrame.values.getCapacitorValue()*e);
+						break;
+					}
+				}
+				break;
+			}
+			case "RLCD":{
+				double e = Math.pow(Math.E, -(time/1000*knobT.amplitude)*MainFrame.values.getBeta());
+				
+				switch(name){
+					case "Resistor":{
+						r = (int)(ampFactor*MainFrame.values.getResistorValue()*MainFrame.values.getOmega()*MainFrame.values.getCapacitorValue()*Math.sin(getRadiansValue(time,0))*e);
+						break;
+					}
+					case "Capacitor":{
+						r = (int)(-ampFactor*Math.cos(getRadiansValue(time,0))*e);
+						break;
+					}
+					case "Coil":{
+						r = (int)(ampFactor*MainFrame.values.getCoilValue()/MainFrame.values.getCapacitorValue()*Math.cos(getRadiansValue(time,0))*e);
+						break;
+					}
+				}
+				break;
 			}
 		}
-		
 		return r;
 	}
 	public void runForest(boolean f){
