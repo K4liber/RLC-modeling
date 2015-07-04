@@ -2,7 +2,6 @@ package prodev.GraphicsInterface;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;

@@ -1,15 +1,14 @@
 ***POMOC "MODELOWANIE UKLADU RLC"***
 
-Aby stworzyc nowy uklad wpisz poprawne wartosci elementow,
+***Aby stworzyc nowy uklad wpisz poprawne wartosci elementow,
 podlacz je do ukladu uzywajac checkbox-ow, nacisnij play.
-
-Aby sprawdzic dzialanie przykladowych programow -
+***Aby sprawdzic dzialanie przykladowych programow -
 wybierz opcje wczytaj z MENU -> wybierz pozadany uklad.
-
-Aby zarzadzac swoimi ukladami wykorzystaj opcje:
+***Aby zarzadzac swoimi ukladami wykorzystaj opcje:
 Zapisz jako/Wczytaj z pliku znajdujace sie w MENU
-
-Aby dostowac ekran wyswietlajacy dane napiecie, poruszaj
+***Aby dostowac ekran wyswietlajacy dane napiecie, poruszaj
 galkami znajdujacymi sie pod nim.
+
+OPEN SOURCE: https://github.com/K4liber/rlc
 
 ***DZIEKUJE ZA UWAGE***
