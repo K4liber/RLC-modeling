@@ -282,7 +282,6 @@ public class ChartAnimation extends JPanel implements Runnable {
 				break;
 			}
 			case "RLCA":{
-				//(BBF/(BBF-BBS)*EE^(-BBS*AS5)+BBS/(BBF-BBS)*EE^(-BBF*AS5))
 				double betaBf = MainFrame.values.getBetaBf();
 				double betaBs = MainFrame.values.getBetaBs();
 				double e = betaBf/(betaBf-betaBs)*Math.pow(Math.E, -(time/1000*knobT.amplitude)*betaBs)+betaBs/(betaBf-betaBs)*Math.pow(Math.E, -(time/1000*knobT.amplitude)*betaBf);

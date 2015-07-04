@@ -80,6 +80,9 @@ public class LeftTopPanel extends JPanel {
 					ii++;
 				}
 				MainFrame.values.validationStates();
+				for (BottomElement belement : Main.frame.bottomPanel.bottomElements) {
+					belement.animation.vDiv.setText(" ? V/div");
+				}
 			}
 		});
 	

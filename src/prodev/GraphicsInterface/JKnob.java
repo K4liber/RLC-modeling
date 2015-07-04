@@ -281,29 +281,7 @@ class JKnob
 	}
     }
 
-    /**
-     * Here main is used simply as a test method.  If this file
-     * is executed "java JKnob" then this main() method will be
-     * run.  However, if another file uses a JKnob as a component
-     * and that file is run then this main is ignored.
-     */
-    public static void main(String[] args) {
 
-	JFrame myFrame = new JFrame("JKnob Test method");
-	
-	Container thePane = myFrame.getContentPane();
-
-	// Add a JKnob to the pane.
-	thePane.add(new JKnob());
-
-	myFrame.addWindowListener(new WindowAdapter() {
-             public void windowClosing(WindowEvent e) {
-                 System.exit(0);
-             }
-         });
-
-	myFrame.pack();
-    }
-    
+   
    
 }
