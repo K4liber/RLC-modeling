@@ -88,7 +88,11 @@ public class FileManager {
 		for(int ii=0;ii<5;ii++){
 			String value = RightTopPanel.elements.get(ii).valueField.getText();
 			String power = RightTopPanel.elements.get(ii).powerField.getText();
-			bufferedWriter.write(value + " " + power);
+			if(value != null && value.length() == 0 || power != null && power.length() == 0)
+				bufferedWriter.write("-");
+			else
+				bufferedWriter.write(value + " " + power);
+			bufferedWriter.newLine();
 		}
 		bufferedWriter.close();
     	loadFilesNames();
