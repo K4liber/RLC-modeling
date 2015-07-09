@@ -33,6 +33,14 @@ public class FileManager {
 	private ActionListener saveButtonListener;
 	
 	public void load(String name) throws IOException{
+		String wrongFormatName = "Wrong format of loading file!";
+		String wrongValueName = "Wrong value!";
+		try {
+			wrongFormatName = Main.translator.getTranslatedPhrase("Wrong format of loading file!");
+			wrongValueName = Main.translator.getTranslatedPhrase("Wrong value!");
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
 		InputStreamReader streamReader;
 		if(name == "Load From File"){
 			streamReader = new InputStreamReader(new FileInputStream(loadingFile), Charset.forName("UTF-8"));
@@ -65,7 +73,7 @@ public class FileManager {
 			        	Float.valueOf(results[0]);
 			        	Float.valueOf(results[1]);
 		        	}catch(NumberFormatException ex){
-		        		JOptionPane.showMessageDialog(null, "Niepoprawna wartosc!");
+		        		JOptionPane.showMessageDialog(null, wrongValueName);
 		        	}
 		        	
 		        	RightTopPanel.elements.get(ii).valueField.setText(results[0]);
@@ -78,7 +86,7 @@ public class FileManager {
 	        }
         }
         catch(Exception e){
-        	JOptionPane.showMessageDialog(null, "Niepoprawny format wczytywanego pliku!");	
+        	JOptionPane.showMessageDialog(null, wrongFormatName);	
         }
     }
 	
@@ -118,7 +126,7 @@ public class FileManager {
 	            loadItem.addActionListener(new ActionListener() {
 	    			public void actionPerformed(ActionEvent e) {
 	    				try {
-							Main.frame.getFile().load(name);
+							load(name);
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -135,20 +143,36 @@ public class FileManager {
 	
 	
 	public FileManager() {
-		JMenuItem saveItem = new JMenuItem("Zapisz jako");
-		JMenuItem loadItem = new JMenuItem("Wczytaj z pliku");
+		String saveAsName = "Save as";
+		String loadFromFileName = "Load from file";
+		String chooseNameTry = "Choose";
+		String chooseFileNameTry = "Choose file";
+		
+		try {
+			saveAsName = Main.translator.getTranslatedPhrase("Save as");
+			loadFromFileName = Main.translator.getTranslatedPhrase("Load from file");
+			chooseNameTry = Main.translator.getTranslatedPhrase("Choose");
+			chooseFileNameTry = Main.translator.getTranslatedPhrase("Choose file");
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		
+		final String chooseFileName = chooseFileNameTry;
+		final String chooseName = chooseNameTry;
+		
+		JMenuItem saveItem = new JMenuItem(saveAsName);
+		JMenuItem loadItem = new JMenuItem(loadFromFileName);
 		
         saveItem.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	JFileChooser chooser = new JFileChooser(); // Stworzenie klasy
-		        chooser.setDialogTitle("Wybierz plik"); // Ustawienie tytułu okienka
-		        int result = chooser.showDialog(null, "Wybierz"); //Otwarcie okienka. Metoda ta blokuje się do czasu wybrania pliku lub zamknięcia okna
-		        if (JFileChooser.APPROVE_OPTION == result){ //Jeśli użtytkownik wybrał plik
+		    	JFileChooser chooser = new JFileChooser(); 
+		        chooser.setDialogTitle(chooseFileName); 
+		        int result = chooser.showDialog(null, chooseName); 
+		        if (JFileChooser.APPROVE_OPTION == result){ 
 		            savingFile = chooser.getSelectedFile();
 		            try {
 						save();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 		        }
@@ -157,15 +181,14 @@ public class FileManager {
         
         loadItem.addActionListener( new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		    	JFileChooser chooser = new JFileChooser(); // Stworzenie klasy
-		        chooser.setDialogTitle("Wybierz plik"); // Ustawienie tytułu okienka
-		        int result = chooser.showDialog(null, "Wybierz"); //Otwarcie okienka. Metoda ta blokuje się do czasu wybrania pliku lub zamknięcia okna
-		        if (JFileChooser.APPROVE_OPTION == result){ //Jeśli użtytkownik wybrał plik
+		    	JFileChooser chooser = new JFileChooser(); 
+		        chooser.setDialogTitle(chooseFileName); 
+		        int result = chooser.showDialog(null, chooseName);
+		        if (JFileChooser.APPROVE_OPTION == result){ 
 		            loadingFile = chooser.getSelectedFile();
 		            try {
 						load("Load From File");
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 		        }else {
@@ -185,5 +208,5 @@ public class FileManager {
 	public void setSaveButtonListener(ActionListener saveButtonListener) {
 		this.saveButtonListener = saveButtonListener;
 	}
-	
+
 }

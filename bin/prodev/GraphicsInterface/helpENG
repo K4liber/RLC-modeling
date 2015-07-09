@@ -1,0 +1,14 @@
+***HELP "RLC Model"***
+
+***To create new system you have to write correct values 
+of elements and switch them on using checkboxes, push play.
+***To try example programs - choose option Load from MENU 
+and select a system.
+***To manage your systems use options:
+Save as/Load from file located in MENU.
+***To set the display of the screen of element's voltage
+move the knobs under the screen.
+
+OPEN SOURCE: https://github.com/K4liber/rlc
+
+***THANK YOU FOR ATTENTION***

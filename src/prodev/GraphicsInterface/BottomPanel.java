@@ -1,8 +1,11 @@
 package prodev.GraphicsInterface;
 import java.awt.GridLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import prodev.Main.Main;
 
 public class BottomPanel extends JPanel {
 
@@ -12,10 +15,10 @@ public class BottomPanel extends JPanel {
 	
 	public BottomPanel() {
 		setLayout(new GridLayout(1, 4));
-		bottomElements.add(new BottomElement("Resistor", "chart.png"));
-		bottomElements.add(new BottomElement("Coil", "chart.png"));
-		bottomElements.add(new BottomElement("Capacitor", "chart.png"));
-		bottomElements.add(new BottomElement("Generator", "chart.png"));
+		bottomElements.add(new BottomElement("Resistor"));
+		bottomElements.add(new BottomElement("Coil"));
+		bottomElements.add(new BottomElement("Capacitor"));
+		bottomElements.add(new BottomElement("Generator"));
 		for(BottomElement e : bottomElements) {
 			add(e);
 		}

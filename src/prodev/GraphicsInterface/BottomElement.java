@@ -1,10 +1,13 @@
 package prodev.GraphicsInterface;
 import java.awt.Color;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import prodev.Main.Main;
 
 public class BottomElement extends JPanel {
 
@@ -13,9 +16,13 @@ public class BottomElement extends JPanel {
 	private String name;
 	public ChartAnimation animation;
 	
-	public BottomElement(String name, String path) {
+	public BottomElement(String name) {
 		setLayout(null);
-		this.name = name;
+		try {
+			this.name = Main.translator.getTranslatedPhrase(name);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setTitleLabel(new JLabel(this.name, SwingConstants.CENTER));
 		getTitleLabel().setBounds(0,0,200,50);
 		add(getTitleLabel());

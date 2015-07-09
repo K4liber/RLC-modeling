@@ -11,13 +11,21 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import prodev.Main.Main;
+
 public class HelpFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextArea helpTextArea;
 	
 	public HelpFrame() throws HeadlessException {
-		setTitle("Help");
+		String title = "Help";
+		try {
+			title = Main.translator.getTranslatedPhrase("Help");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setTitle(title);
 		setSize(400, 300);
 		helpTextArea = new JTextArea();
 		loadTextFromFile();
@@ -43,7 +51,7 @@ public class HelpFrame extends JFrame {
 		
 		helpTextArea.setText("");
 
-    	URL source = getClass().getResource("help.txt");
+    	URL source = getClass().getResource("help"+Main.getLanguage());
     	try {
 			streamReader = new InputStreamReader(source.openStream(), Charset.forName("UTF-8"));
 		} catch (IOException e) {

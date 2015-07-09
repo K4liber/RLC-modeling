@@ -1,6 +1,7 @@
 package prodev.GraphicsInterface;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -22,29 +23,45 @@ public class MainFrame extends JFrame {
 	public TopPanel topPanel;
 	public BottomPanel bottomPanel;
 	JMenuBar menu = new JMenuBar();
-	public static JMenu load = new JMenu("Wczytaj");
+	public static JMenu load;
 	private static ArrayList<JMenuItem> loadItems = new ArrayList<>();
-	static public JMenu save = new JMenu("Zapisz");
-	static public JMenu help = new JMenu("Pomoc");
+	static public JMenu save;
+	static public JMenu help;
 	static boolean runAnimation = false;
 	static ValuesOfElements values;
 	public static boolean elementsValidation = false;
-	private static FileManager file;
+	public static FileManager file;
 	
 	public MainFrame() {
-		super("RLC");
+		super("RLC Model");
 		
+		try {
+			load = new JMenu(Main.translator.getTranslatedPhrase("Load"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			save = new JMenu(Main.translator.getTranslatedPhrase("Save"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			help = new JMenu(Main.translator.getTranslatedPhrase("Help"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setResizable(false);
+		//setResizable(false);
 		setLayout(new GridLayout(2, 1));
+		
+		setFile(new FileManager());
 		
 		topPanel = new TopPanel();
 		bottomPanel = new BottomPanel();
 		bottomPanel.setBorder(BorderFactory.createLineBorder(new Color(20,20,20)));
-		
-		setFile(new FileManager());
+
 		getFile().loadFilesNames();
 		
 		for(JMenuItem e : getLoadItems()) {

@@ -2,8 +2,10 @@ package prodev.GraphicsInterface;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -19,13 +21,17 @@ public class LeftTopPanel extends JPanel {
 	
 	public static ImagePanel images[] = {null,null,null,null};
 	public JLabel titleLabel;
-	public String name = "Modelowanie uk³adu R-L-C";
+	public String name;
 	public JPanel panel;
 	public JButton playButton;
 	
 	public LeftTopPanel() {
 		setLayout(null);
-		
+		try {
+			name = Main.translator.getTranslatedPhrase("RLC modeling system");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		titleLabel = new JLabel(this.name);
 		titleLabel.setFont(new Font("Arial", 1, 20));
 		titleLabel.setBounds(70,20,280,20);
@@ -43,7 +49,6 @@ public class LeftTopPanel extends JPanel {
 		images[2] = new ImagePanel("LOFF.png");
 		images[2].setPreferredSize(new Dimension(341, 54));
 		images[2].setBounds(30,178,341,54);
-		
 		
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 3, 20, 10));
@@ -74,7 +79,13 @@ public class LeftTopPanel extends JPanel {
 						}
 					} catch (NumberFormatException ex) {
 						MainFrame.runAnimation = false;
-						JOptionPane.showMessageDialog(null, "Poprawny format: 0,1202*10^-11");	
+						try {
+							JOptionPane.showMessageDialog(null, Main.translator.getTranslatedPhrase("Poprawny format: 0,1202*10^-11"));
+						} catch (HeadlessException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}	
 						break;
 					}
 					ii++;
