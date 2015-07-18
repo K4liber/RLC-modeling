@@ -71,6 +71,7 @@ public class LanguageChooser extends JFrame {
 		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 		setVisible(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

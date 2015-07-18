@@ -36,6 +36,7 @@ public class HelpFrame extends JFrame {
 		setAlwaysOnTop(true);
 		setLocationRelativeTo(null);
 		setVisible(false);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public JTextArea gethelpTextArea() {
