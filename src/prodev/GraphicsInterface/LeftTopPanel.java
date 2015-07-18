@@ -32,6 +32,7 @@ public class LeftTopPanel extends JPanel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
 		titleLabel = new JLabel(this.name);
 		titleLabel.setFont(new Font("Arial", 1, 20));
 		titleLabel.setBounds(70,20,280,20);
@@ -105,12 +106,7 @@ public class LeftTopPanel extends JPanel {
 		JButton stopButton = new JButton("\u23F9");
 		stopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.runAnimation = false;
-				for (BottomElement belement : Main.frame.bottomPanel.bottomElements) {
-					belement.animation.counter = 0;
-					belement.animation.setStartFrequency(MainFrame.values.getFrequencyValue());
-					belement.animation.setStartAmplitude(MainFrame.values.getAmplitudeValue());
-				}
+				stopSimulation();
 			}
 		});
 		JButton pauseButton = new JButton("||");
@@ -125,4 +121,12 @@ public class LeftTopPanel extends JPanel {
 		add(panel);
 	}
 	
+	public void stopSimulation() {
+		MainFrame.runAnimation = false;
+		for (BottomElement belement : Main.frame.bottomPanel.bottomElements) {
+			belement.animation.counter = 0;
+			belement.animation.setStartFrequency(MainFrame.values.getFrequencyValue());
+			belement.animation.setStartAmplitude(MainFrame.values.getAmplitudeValue());
+		}
+	}
 }

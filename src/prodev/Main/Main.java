@@ -1,6 +1,5 @@
 package prodev.Main;
 import java.io.IOException;
-
 import prodev.GraphicsInterface.HelpFrame;
 import prodev.GraphicsInterface.LanguageChooser;
 import prodev.GraphicsInterface.MainFrame;

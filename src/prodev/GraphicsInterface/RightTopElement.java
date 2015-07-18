@@ -9,7 +9,7 @@ import java.awt.event.ItemListener;
 public class RightTopElement extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	public JCheckBox checkBox;
+	public JCheckBox checkBox = null;
 	public ImagePanel image;
 	public JTextField valueField;
 	public JLabel label;

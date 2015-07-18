@@ -1,11 +1,7 @@
 package prodev.GraphicsInterface;
 import java.awt.GridLayout;
-import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
-
-import prodev.Main.Main;
 
 public class BottomPanel extends JPanel {
 

@@ -1,14 +1,14 @@
-RLC modeling system:Modelowanie uk³adu RLC
+RLC modeling system:Modelowanie ukÅ‚adu RLC
 Resistor:Rezystor
 Coil:Cewka
 Generator:Generator
 Capacitor:Kondensator
 Resistance:Rezystencja
-Capacity:Pojemnoœæ
-Inductance:Indukcyjnoœæ
+Capacity:PojemnoÅ›Ä‡
+Inductance:IndukcyjnoÅ›Ä‡
 Amplitude:Amplituda
-Frequency:Czêstotliwoœæ
-The system must contain a power source (generator or capacitor):Uk³ad musi zawieraæ Ÿród³o zasilania (generator lub kondensator)
+Frequency:CzÄ™stotliwoÅ›Ä‡
+The system must contain a power source (generator or capacitor):UkÅ‚ad musi zawieraÄ‡ zasilanie (generator lub kondensator)
 Correct format is :Poprawny format to 
 Help:Pomoc
 Save:Zapisz
@@ -19,3 +19,5 @@ Choose:Wybierz
 Choose file:Wybierz plik
 Wrong format of loading file!:Niepoprawny format wczytywanego pliku!
 Wrong value!:Niepoprawna wartosc!
+Options:Opcje
+Exit:WyjÅ›cie

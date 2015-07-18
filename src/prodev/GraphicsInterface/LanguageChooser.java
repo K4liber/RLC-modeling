@@ -6,14 +6,11 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import prodev.Main.Main;
 
 public class LanguageChooser extends JFrame {
@@ -57,7 +54,7 @@ public class LanguageChooser extends JFrame {
 		});
 		
 		chooserTextInEnglish = new JLabel("Select a Language");
-		chooserTextInPolish = new JLabel("Wybierz jêzyk");
+		chooserTextInPolish = new JLabel("Wybierz jÄ™zyk");
 		chooserTextInEnglish.setHorizontalAlignment(JLabel.CENTER);
 		chooserTextInPolish.setHorizontalAlignment(JLabel.CENTER);
 		
