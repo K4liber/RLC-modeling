@@ -327,7 +327,11 @@ public class ChartAnimation extends JPanel implements Runnable {
 	public void runForest(boolean f){
 		running = f;
 	}
-
+	
+	public boolean isRunning(){
+		return running;
+	}
+	
 	public double getAmpFactor() {
 		return ampFactor;
 	}

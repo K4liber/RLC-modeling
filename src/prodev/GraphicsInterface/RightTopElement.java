@@ -2,6 +2,7 @@ package prodev.GraphicsInterface;
 
 import javax.swing.*;
 
+import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -27,6 +28,7 @@ public class RightTopElement extends JPanel {
 		nextElement = element;
 	}
 	public RightTopElement(String n, String path, String s, boolean isCheckbox) {
+		setLayout(null);
 		
 		i = id;
 		id++;
@@ -34,9 +36,10 @@ public class RightTopElement extends JPanel {
 		name = n;
 
 		image = path != null ? new ImagePanel(path) : null;
-		if(image != null)
+		if(image != null){
 			image.setBounds(40, 0, 70, 70);
-
+			image.setPreferredSize(new Dimension(70,70));
+		}
 		label = new JLabel(name);
 		label.setBounds(120, 10, 100, 30);
 
@@ -52,7 +55,6 @@ public class RightTopElement extends JPanel {
 		signLabel = new JLabel(s);
 		signLabel.setBounds(370, 10, 30, 30);
 
-		setLayout(null);
 		valueField.setEnabled(false);
 		powerField.setEnabled(false);
 		

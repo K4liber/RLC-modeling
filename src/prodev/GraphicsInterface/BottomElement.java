@@ -1,5 +1,6 @@
 package prodev.GraphicsInterface;
 import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -12,7 +13,7 @@ import prodev.Main.Main;
 public class BottomElement extends JPanel {
 
 	private static final long serialVersionUID = 4010806667691565848L;
-	private JLabel titleLabel;
+	public JLabel titleLabel;
 	private String name;
 	public ChartAnimation animation;
 	
@@ -38,6 +39,8 @@ public class BottomElement extends JPanel {
 
 	public void setTitleLabel(JLabel titleLabel) {
 		this.titleLabel = titleLabel;
+		this.titleLabel.setFont(new Font("Arial", 1, 16));
+		this.titleLabel.setForeground(new Color(200,200,200));
 	}
 	
 }

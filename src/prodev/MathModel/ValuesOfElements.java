@@ -1,5 +1,9 @@
 package prodev.MathModel;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 import prodev.GraphicsInterface.MainFrame;
@@ -124,15 +128,21 @@ public class ValuesOfElements {
 			}
 		}
 		MainFrame.elementsValidation = validation;
-		
+		String message = "The system must contain a power source (generator or capacitor)";
+		try {
+			message = Main.translator.getTranslatedPhrase("The system must contain a power source (generator or capacitor)");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		if(validation == false){
 			MainFrame.setRunState(false);
-			JOptionPane.showMessageDialog(null, "Uk³ad musi czerpac energie z generatora lub kondesatora!");
+			JOptionPane.showMessageDialog(null, message);
 		}
 		else{
 			setSchemeBasicData();
 			for(int ii=0;ii<4;ii++){
 				if(listOfElements[ii]){
+					Main.frame.bottomPanel.bottomElements.get(ii).titleLabel.setForeground(new Color(1,1,1));
 					Main.frame.bottomPanel.bottomElements.get(ii).animation.runForest(true);
 					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartFrequency(frequencyValue);
 					Main.frame.bottomPanel.bottomElements.get(ii).animation.setStartAmplitude(amplitudeValue);

@@ -110,9 +110,9 @@ public class FileManager {
 					Charset.forName("UTF-8"));
 		}
 		BufferedReader bufferedReader = new BufferedReader(streamReader);
-
 		disableElementsValues();
-		
+		Main.frame.topPanel.leftTopPanel.stopSimulation();
+		Main.frame.topPanel.leftTopPanel.unpaintAnimations();
 		try {
 			String line = bufferedReader.readLine();
 			int ii = 0;
@@ -124,7 +124,6 @@ public class FileManager {
 				String results[] = null;
 				if (line.contains(" ")) {
 					results = line.split(" ");
-
 					try {
 						Float.valueOf(results[0]);
 						Float.valueOf(results[1]);

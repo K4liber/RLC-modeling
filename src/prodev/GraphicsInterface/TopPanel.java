@@ -9,8 +9,8 @@ public class TopPanel extends JPanel {
 
 	private static final long serialVersionUID = -7891984535923483679L;
 
-	LeftTopPanel leftTopPanel;
-	RightTopPanel rightTopPanel;
+	public LeftTopPanel leftTopPanel;
+	public RightTopPanel rightTopPanel;
 	
 	public TopPanel() {
 		setLayout(new GridLayout(1, 2));

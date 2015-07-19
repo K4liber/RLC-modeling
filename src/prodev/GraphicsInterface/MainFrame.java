@@ -2,15 +2,20 @@ package prodev.GraphicsInterface;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
 import prodev.Main.FileManager;
 import prodev.Main.Main;
 import prodev.MathModel.ValuesOfElements;
@@ -59,7 +64,7 @@ public class MainFrame extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(new GridLayout(2, 1));
 		setFile(new FileManager());
-		
+
 		topPanel = new TopPanel();
 		bottomPanel = new BottomPanel();
 		bottomPanel.setBorder(BorderFactory.createLineBorder(new Color(20,20,20)));
@@ -113,5 +118,34 @@ public class MainFrame extends JFrame {
 	public static void setLoadItems(ArrayList<JMenuItem> loadItems) {
 		MainFrame.loadItems = loadItems;
 	}
-
+	
+	public int getFrameWidth(){
+		return getContentPane().getWidth();
+	}
+	
+	public int getFrameHeight(){
+		return getContentPane().getHeight();
+	}
+	
+	public int elementGraduationWidth(int x){
+		int frameStartedWidth = 784;
+		return x*(getFrameWidth()/frameStartedWidth);
+	}
+	
+	public int elementGraduationHeight(int y){
+		int frameStartedHeight = 784;
+		return y*(getFrameHeight()/frameStartedHeight);
+	}
+	
+	public void TestFrame() {
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent arg0) {
+            	int W = 4;  
+                int H = 3;  
+                Rectangle b = arg0.getComponent().getBounds();
+                arg0.getComponent().setBounds(b.x, b.y, b.width, b.width*H/W);
+                System.out.println(b.x + "  " + b.y + "  " + b.width + "  " + b.width*H/W);
+            }
+        });
+    }
 }
