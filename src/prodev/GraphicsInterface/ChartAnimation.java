@@ -1,6 +1,7 @@
 package prodev.GraphicsInterface;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JLabel;
@@ -32,15 +33,15 @@ public class ChartAnimation extends JPanel implements Runnable {
 		JPanel knobs = new JPanel();
 		knobs.setLayout(null);
 		knobV = new JKnob();
-		knobV.setBounds(20,18,50,40);
+		knobV.setBounds(23,2,50,40);
 		knobT = new JKnob();
-		knobT.setBounds(100,18,50,40);
+		knobT.setBounds(100,2,50,40);
 		vDiv = new JLabel();
 		vDiv.setText(" ? V/div");
-		vDiv.setBounds(15,28,55,60);
+		vDiv.setBounds(22,12,55,60);
 		tDiv = new JLabel();
 		tDiv.setText(" ? s/div");
-		tDiv.setBounds(95,28,55,60);
+		tDiv.setBounds(98,12,55,60);
 		trit = new Thread(this);
 		sinusData = new int[150];
 		timeBase = new int[150];
@@ -51,7 +52,7 @@ public class ChartAnimation extends JPanel implements Runnable {
 		for(int ii=0;ii<150;ii++){
 			timeBase[ii] = ii;
 		}
-		knobs.setBounds(0,153,200,140);
+		knobs.setBounds(0,156,200,140);
 		add(knobs);
 	}
 	
@@ -342,5 +343,9 @@ public class ChartAnimation extends JPanel implements Runnable {
 	
 	public double getRadiansValue(double time,double phase){
 		return Math.toRadians(((time/1000)*frequency*knobT.amplitude*2*Math.PI+phase)*375);
+	}
+	
+	public Dimension getPreferredSize(){
+		return new Dimension(160,220);
 	}
 }

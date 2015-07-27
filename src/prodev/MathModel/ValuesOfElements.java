@@ -1,7 +1,6 @@
 package prodev.MathModel;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;

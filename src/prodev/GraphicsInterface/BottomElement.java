@@ -1,5 +1,8 @@
 package prodev.GraphicsInterface;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.io.IOException;
 
@@ -16,21 +19,30 @@ public class BottomElement extends JPanel {
 	public JLabel titleLabel;
 	private String name;
 	public ChartAnimation animation;
+	private JPanel mainPanel;
 	
 	public BottomElement(String name) {
-		setLayout(null);
+		
+		setLayout(new BorderLayout());
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new FlowLayout());
+		
 		try {
 			this.name = Main.translator.getTranslatedPhrase(name);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		setTitleLabel(new JLabel(this.name, SwingConstants.CENTER));
-		getTitleLabel().setBounds(0,0,200,50);
-		add(getTitleLabel());
+		titleLabel.setPreferredSize(new Dimension(380,30));
 		setBorder(BorderFactory.createLineBorder(new Color(20,20,20)));
 		animation = new ChartAnimation(name);
-		animation.setBounds(23,45,155,220);
-		add(animation);	
+		
+		mainPanel.add(titleLabel);
+		mainPanel.add(animation);	
+		
+		add(mainPanel, BorderLayout.CENTER);
+		
 	}
 
 	public JLabel getTitleLabel() {
